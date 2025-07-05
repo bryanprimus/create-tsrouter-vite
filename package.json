@@ -1,8 +1,26 @@
 {
   "name": "create-tsrouter-vite",
-  "version": "0.0.2",
+  "version": "0.0.3",
+  "description": "A CLI tool to generate web applications with TanStack Router and Vite",
+  "keywords": [
+    "cli",
+    "tanstack-router",
+    "vite",
+    "react",
+    "typescript",
+    "boilerplate",
+    "scaffold",
+    "create",
+    "generator",
+    "router",
+    "spa",
+    "frontend",
+    "web-app",
+    "template"
+  ],
   "module": "index.ts",
   "type": "module",
+  "bin": "./index.ts",
   "devDependencies": {
     "@types/bun": "latest"
   },

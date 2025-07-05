@@ -7,5 +7,5 @@ A CLI project to generate an app using TanStack Router and Vite.
 Make sure you have [Bun](https://bun.sh) installed on your system.
 
 ```bash
-bunx --bun create-tsrouter-vite
+bunx --bun create-tsrouter-vite@latest
 ```

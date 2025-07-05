@@ -151,7 +151,7 @@ async function main(): Promise<void> {
   
   // Success
   p.note(
-    `cd ${projectName}\nbun run index.js`,
+    `cd ${projectName}\nbun dev`,
     "Next steps"
   );
   

@@ -84,6 +84,20 @@ async function installDependencies(projectName: string): Promise<void> {
   }
 }
 
+async function initializeGit(projectName: string): Promise<void> {
+  const gitSpinner = p.spinner();
+  gitSpinner.start("Initializing git repository...");
+  
+  try {
+    execSync("git init", { stdio: "pipe", cwd: projectName });
+    execSync("git add .", { stdio: "pipe", cwd: projectName });
+    execSync('git commit -m "feat: init with create-tsrouter-vite"', { stdio: "pipe", cwd: projectName });
+    gitSpinner.stop("Git repository initialized!");
+  } catch (error) {
+    gitSpinner.stop("Failed to initialize git repository. You can run 'git init' manually.");
+  }
+}
+
 // === User Input ===
 
 async function getProjectName(): Promise<string> {
@@ -115,6 +129,20 @@ async function shouldInstallDependencies(): Promise<boolean> {
   return shouldInstall;
 }
 
+async function shouldInitializeGit(): Promise<boolean> {
+  const shouldInitGit = await p.confirm({
+    message: "Initialize git repository?",
+    initialValue: true,
+  });
+
+  if (p.isCancel(shouldInitGit)) {
+    p.cancel("Operation cancelled.");
+    process.exit(0);
+  }
+
+  return shouldInitGit;
+}
+
 // === Main CLI Flow ===
 
 async function main(): Promise<void> {
@@ -128,6 +156,7 @@ async function main(): Promise<void> {
   // Get user input
   const projectName = await getProjectName();
   const shouldInstallDeps = await shouldInstallDependencies();
+  const shouldInitGit = true; // Always initialize git
 
   // Create project
   try {
@@ -142,6 +171,11 @@ async function main(): Promise<void> {
     // Install dependencies if requested
     if (shouldInstallDeps) {
       await installDependencies(projectName);
+    }
+    
+    // Initialize git if requested
+    if (shouldInitGit) {
+      await initializeGit(projectName);
     }
     
   } catch (error) {
